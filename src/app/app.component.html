@@ -8,27 +8,60 @@
             </div>
             <div class="form-group">
                 <label for="username">用户名：</label>
-                <input type="text" required name="username"
+                <input type="text" name="username" required
                     placeholder="只能使用字母加数字" id="username"
-                    [(ngModel)]="user.username">
+                    [(ngModel)]="user.username" #un="ngModel"
+                    minlength="4" class="txt">
+                <div *ngIf="un.touched && un.invalid">
+                    <p class="error" *ngIf="un.errors?.required">
+                        用户名不能为空
+                    </p>
+                    <p class="error" *ngIf="un.errors?.minlength">
+                        用户名至少需要4个字符
+                    </p>
+                </div>
             </div>
             <div class="form-group">
                 <label for="password">密　码：</label>
                 <input type="password" required name="password" 
-                    placeholder="字母、数字及常用符号" id="password"
-                    [(ngModel)]="user.password">
+                    placeholder="字母、数字及常用符号，大于8位"
+                    id="password" [(ngModel)]="user.password"
+                    minlength="8" class="txt" #pwd="ngModel">
+                <div *ngIf="pwd.touched && pwd.invalid">
+                    <p class="error" *ngIf="pwd.errors?.required">
+                        密码不能为空
+                    </p>
+                    <p class="error" *ngIf="pwd.errors?.minlength">
+                        密码至少需要8个字符
+                    </p>
+                </div>
             </div>
             <div class="form-group">
                 <label for="email">邮　箱：</label>
-                <input type="email" required name="email" 
+                <input type="email" email required name="email" 
                     placeholder="邮箱格式，如: abc@def.com" id="email"
-                    [(ngModel)]="user.email">
+                    [(ngModel)]="user.email" class="txt"
+                    #email="ngModel">
+                <div *ngIf="email.touched && email.invalid">
+                    <p class="error" *ngIf="email.errors?.email || email.errors?.required">
+                        邮箱格式不合法
+                    </p>
+                </div>
             </div>
             <div class="form-group">
                 <label for="phone">手　机：</label>
                 <input type="tel" required name="phone" 
+                    pattern="\d{11}" #tel="ngModel"
                     placeholder="仅支持11位数字" id="phone"
-                    [(ngModel)]="user.phone">
+                    [(ngModel)]="user.phone" class="txt">
+                <div *ngIf="tel.touched && tel.invalid">
+                    <p class="error" *ngIf="tel.errors?.required">
+                        手机号码不能为空
+                    </p>
+                    <p class="error" *ngIf="tel.errors?.pattern">
+                        手机号码仅支持11位数字{{tel.errors?.pattern}}
+                    </p>
+                </div>
             </div>
             <div class="form-group">
                 <label for="job">职　业：</label>
@@ -38,6 +71,14 @@
                         [value]="job.id">{{job.name}}</option>
                 </select>
             </div>
+            <!-- <div class="form-group">
+                <label>
+                    <input type="radio" [(ngModel)]="agreed"
+                        requiredTrue name="agreement"
+                        #agree="ngModel">
+                    &nbsp;同意<a href="javascript:void(0);">《xxxx》</a>协议{{agree.valid}}
+                </label>
+            </div> -->
             <div class="form-group">
                 <button type="submit" class="btn"
                     [disabled]="!userForm.form.valid">提交</button>

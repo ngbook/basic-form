@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { PwdValidateDirective } from './pwd-validate.directive';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        PwdValidateDirective
     ],
     imports: [
         BrowserModule,

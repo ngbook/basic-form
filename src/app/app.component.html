@@ -23,16 +23,20 @@
             </div>
             <div class="form-group">
                 <label for="password">密　码：</label>
-                <input type="password" required name="password" 
-                    placeholder="字母、数字及常用符号，大于8位"
+                <input type="password" name="password" 
+                    placeholder="必须包含字母、数字及常用符号，大于8位"
                     id="password" [(ngModel)]="user.password"
-                    minlength="8" class="txt" #pwd="ngModel">
+                    pwdValidate #pwd="ngModel"
+                    minlength="8" class="txt">
                 <div *ngIf="pwd.touched && pwd.invalid">
                     <p class="error" *ngIf="pwd.errors?.required">
                         密码不能为空
                     </p>
                     <p class="error" *ngIf="pwd.errors?.minlength">
                         密码至少需要8个字符
+                    </p>
+                    <p class="error" *ngIf="!pwd.errors?.minlength && pwd.errors?.pwdValidate">
+                        密码必须包含字母、数字及常用符号
                     </p>
                 </div>
             </div>
@@ -51,7 +55,7 @@
             <div class="form-group">
                 <label for="phone">手　机：</label>
                 <input type="tel" required name="phone" 
-                    pattern="\d{11}" #tel="ngModel"
+                    pattern="1\d{10}" #tel="ngModel"
                     placeholder="仅支持11位数字" id="phone"
                     [(ngModel)]="user.phone" class="txt">
                 <div *ngIf="tel.touched && tel.invalid">
@@ -59,7 +63,7 @@
                         手机号码不能为空
                     </p>
                     <p class="error" *ngIf="tel.errors?.pattern">
-                        手机号码仅支持11位数字
+                        手机号码仅支持1开头的11位数字
                     </p>
                 </div>
             </div>

@@ -55,7 +55,7 @@
             <div class="form-group">
                 <label for="phone">手　机：</label>
                 <input type="tel" required name="phone" 
-                    pattern="1\d{10}" #tel="ngModel"
+                    pattern="^1\d{10}$" #tel="ngModel"
                     placeholder="仅支持11位数字" id="phone"
                     [(ngModel)]="user.phone" class="txt">
                 <div *ngIf="tel.touched && tel.invalid">

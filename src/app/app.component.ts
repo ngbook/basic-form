@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
-// import { Validators } from '@angular/forms';
+import {
+    FormGroup,
+    FormBuilder,
+    FormControl,
+    Validators,
+    AbstractControl,
+} from '@angular/forms';
 import { User } from './user.model';
+import { pwdValidator } from './pwd.validator';
 
 const JOB_LIST = [
     {id: 1001, name: '学生'},
@@ -13,21 +20,60 @@ const JOB_LIST = [
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-    user = new User();
-    jobs = JOB_LIST;
+    jobs = JOB_LIST; // 作为<select>的<option>列表值
+    userForm: FormGroup;
 
-    constructor() {
-        // 初始化
-        this.user.job = JOB_LIST[0].id;
-    }
-    // 调试输出
-    get diagnostic() {
-        return JSON.stringify(this.user);
+    // form controls
+    username: FormControl;
+    pwd: FormControl;
+    email: FormControl;
+    tel: FormControl;
+    job: FormControl;
+
+    constructor(private fb: FormBuilder) {
+        // 创建表格
+        this.createForm();
     }
     onSubmit() {
-        
+        // pass
+    }
+    private createForm() {
+        this.username = new FormControl('', [
+            Validators.compose([
+                Validators.required,
+                Validators.minLength(4), // 最少4个字符
+            ])
+        ]);
+        this.pwd = new FormControl('', [
+            Validators.compose([
+                Validators.required,
+                Validators.minLength(8),
+                pwdValidator(), // 自定义校验器
+            ])
+        ]);
+        this.email = new FormControl('', [
+            Validators.compose([
+                Validators.required,
+                Validators.email,
+            ])
+        ]);
+        this.tel = new FormControl('', [
+            Validators.compose([
+                Validators.required,
+                Validators.pattern(/^1\d{10}$/), // 正则校验
+            ])
+        ]);
+        this.job = new FormControl(JOB_LIST[0].id);
+        // build the form
+        this.userForm = this.fb.group({
+            username: this.username,
+            password: this.pwd,
+            email: this.email,
+            phone: this.tel,
+            job: this.job
+        });
     }
 }

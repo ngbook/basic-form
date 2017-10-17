@@ -31,9 +31,7 @@ export class PwdValidateDirective implements Validator {
         console.log(count);
         if (count !== 3) {
             return {
-                'pwdValidate': {
-                    value: control.value
-                }
+                'errMsg': '密码必须包含字母、数字、符号'
             };
         } else {
             return null;

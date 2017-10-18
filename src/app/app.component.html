@@ -7,9 +7,8 @@
             </div>
             <div class="form-group">
                 <label for="username">用户名：</label>
-                <input type="text" name="username"
+                <input type="text" class="txt required"
                     placeholder="只能使用字母加数字" id="username"
-                    class="txt required"
                     formControlName="username">
                 <div *ngIf="username.touched && username.invalid">
                     <p class="error" *ngIf="username.errors?.required">
@@ -22,10 +21,9 @@
             </div>
             <div class="form-group">
                 <label for="password">密　码：</label>
-                <input type="password" name="password" 
+                <input type="password" class="txt required"
                     placeholder="必须包含字母、数字及常用符号，大于8位"
-                    id="password" class="txt required"
-                    formControlName="password">
+                    id="password" formControlName="password">
                 <div *ngIf="pwd.touched && pwd.invalid">
                     <p class="error" *ngIf="pwd.errors?.required">
                         密码不能为空
@@ -40,9 +38,9 @@
             </div>
             <div class="form-group">
                 <label for="email">邮　箱：</label>
-                <input type="email" name="email" class="txt required"
-                    placeholder="邮箱格式，如: abc@def.com" id="email"
-                    formControlName="email">
+                <input type="email" class="txt required"
+                    placeholder="邮箱格式，如: abc@def.com"
+                    id="email" formControlName="email">
                 <div *ngIf="email.touched && email.invalid">
                     <p class="error" *ngIf="email.errors?.email || email.errors?.required">
                         邮箱格式不合法
@@ -51,7 +49,7 @@
             </div>
             <div class="form-group">
                 <label for="phone">手　机：</label>
-                <input type="tel" name="phone" class="txt required"
+                <input type="tel" class="txt required"
                     placeholder="仅支持11位数字" id="phone"
                     formControlName="phone"/>
                 <div *ngIf="tel.touched && tel.invalid">
@@ -65,9 +63,8 @@
             </div>
             <div class="form-group">
                 <label for="job">职　业：</label>
-                <select type="text" name="job" 
-                    id="job" class="required"
-                    formControlName="job">
+                <select type="text" class="required"
+                    formControlName="job" id="job">
                     <option *ngFor="let job of jobs"
                         [value]="job.id">{{job.name}}</option>
                 </select>

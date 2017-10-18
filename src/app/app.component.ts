@@ -38,7 +38,8 @@ export class AppComponent {
         this.createForm();
     }
     onSubmit() {
-        // pass
+        // 拿到用户的所有输入数据
+        console.log(this.userForm.value);
     }
     private createForm() {
         this.username = new FormControl('', [
